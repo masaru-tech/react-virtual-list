@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var runsequence = require('run-sequence');
 var react = require('gulp-react');
 
 function handleError(err) {
@@ -21,4 +22,6 @@ gulp.task('copy', function() {
     
 });
 
-gulp.task('default', ['jsx', 'copy']);
+gulp.task('default', function(callback) {
+    runsequence('jsx', 'copy', callback);
+});

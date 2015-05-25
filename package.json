@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "gulp default",
+    "build": "browserify -t reactify App.jsx -o app.js",
     "test": "jasmine-node test --verbose --matchall"
   },
   "repository": {
@@ -30,8 +30,10 @@
     "react": "^0.13.3"
   },
   "devDependencies": {
+    "browserify": "^10.2.1",
     "gulp": "^3.8.11",
     "gulp-react": "^3.0.1",
-    "jasmine-node": "^1.14.5"
+    "jasmine-node": "^1.14.5",
+    "reactify": "^1.1.1"
   }
 }

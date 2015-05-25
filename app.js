@@ -95,6 +95,7 @@ var VirtualList = React.createClass({displayName: "VirtualList",
 module.exports = VirtualList;
 
 },{"./utils/virtual-renderer":2,"react":158}],2:[function(require,module,exports){
+// move this into VirtualList
 function VirtualRenderer(viewTop, viewHeight, listTop, itemHeight, itemCount) {
     this.viewTop = viewTop;
     this.viewHeight = viewHeight;
@@ -127,7 +128,6 @@ VirtualRenderer.prototype.getItems = function() {
     
     var viewBox = {
         top: this.viewTop,
-        height: this.viewHeight,
         bottom: this.viewTop + this.viewHeight
     };
     
@@ -143,12 +143,12 @@ VirtualRenderer.prototype.getItems = function() {
     
     var listViewBox = VirtualRenderer.getBox(viewBox, listBox);
     
-    var firstItemIndex = listViewBox.top > -1 ? Math.floor(listViewBox.top / this.itemHeight) : 0;
+    var firstItemIndex = Math.max(0,  Math.floor(listViewBox.top / this.itemHeight)); //listViewBox.top > -1 ? Math.floor(listViewBox.top / this.itemHeight) : 0;
     var lastItemIndex = Math.ceil(listViewBox.bottom / this.itemHeight) - 1;
     
     var itemsInView = lastItemIndex - firstItemIndex + 1;
     var itemsBeforeView = firstItemIndex;
-    var itemsAfterView = this.itemCount - 1 - lastItemIndex;
+    var itemsAfterView = this.itemCount - lastItemIndex - 1;
 
     var result = {
         firstItemIndex: firstItemIndex,
@@ -19984,7 +19984,7 @@ var App = React.createClass({displayName: "App",
     renderItem: function(item) {
         return (
             React.createElement("div", {key: item.id, className: "item list-group-item", style: {height: itemHeight}}, 
-                React.createElement("h4", {className: "list-group-item-heading"}, "Item #", item.id), 
+                React.createElement("h4", {className: "list-group-item-heading"}, "Item #", item.id + 1), 
                 React.createElement("p", {className: "list-group-item-text"}, "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.")
             )
         );

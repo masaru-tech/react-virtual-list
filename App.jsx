@@ -8,7 +8,7 @@ var App = React.createClass({
     renderItem: function(item) {
         return (
             <div key={item.id} className="item list-group-item" style={{height: itemHeight}}>
-                <h4 className="list-group-item-heading">Item #{item.id}</h4>
+                <h4 className="list-group-item-heading">Item #{item.id + 1}</h4>
                 <p className="list-group-item-text" >Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
             </div>
         );

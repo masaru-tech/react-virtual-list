@@ -17,9 +17,7 @@ var ExampleList = React.createClass({
     },
     render: function() {
         return (
-            <div className="media-list list-group">
-                <VirtualList container={this.props.container} items={this.props.items} renderItem={this.renderItem} itemHeight={this.props.itemHeight} />
-            </div>
+            <VirtualList className="media-list list-group" container={this.props.container} items={this.props.items} renderItem={this.renderItem} itemHeight={this.props.itemHeight} />
         );
     }
 });

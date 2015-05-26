@@ -63,7 +63,7 @@ var VirtualList = React.createClass({displayName: "VirtualList",
         var viewTop = typeof container.scrollY !== 'undefined' ? container.scrollY : container.scrollTop;
 
         var renderer = new VirtualRenderer(viewTop, viewHeight, offsetTop, props.itemHeight, items.length);
-        
+
         var renderStats = renderer.getItems();
         
         // no items to render
@@ -108,7 +108,7 @@ var VirtualList = React.createClass({displayName: "VirtualList",
     },
     render: function() {
         return (
-        React.createElement("div", null, 
+        React.createElement("div", React.__spread({},  this.props), 
             React.createElement("div", {style: {height: this.state.bufferStart}}), 
             this.state.items.map(this.props.renderItem), 
             React.createElement("div", {style: {height: this.state.bufferEnd}})
@@ -20015,9 +20015,7 @@ var ExampleList = React.createClass({displayName: "ExampleList",
     },
     render: function() {
         return (
-            React.createElement("div", {className: "media-list list-group"}, 
-                React.createElement(VirtualList, {container: this.props.container, items: this.props.items, renderItem: this.renderItem, itemHeight: this.props.itemHeight})
-            )
+            React.createElement(VirtualList, {className: "media-list list-group", container: this.props.container, items: this.props.items, renderItem: this.renderItem, itemHeight: this.props.itemHeight})
         );
     }
 });

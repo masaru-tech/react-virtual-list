@@ -1,7 +1,7 @@
 var React = require('react');
 var VirtualList = require('./dist/VirtualList.js');
 
-var App = React.createClass({
+var ExampleList = React.createClass({
     renderItem: function(item) {
         return (
             <div key={item.id} className="list-group-item" style={{height: this.props.itemHeight}}>
@@ -18,7 +18,7 @@ var App = React.createClass({
     render: function() {
         return (
             <div className="media-list list-group">
-                <VirtualList items={this.props.items} renderItem={this.renderItem} itemHeight={this.props.itemHeight} />
+                <VirtualList container={this.props.container} items={this.props.items} renderItem={this.renderItem} itemHeight={this.props.itemHeight} />
             </div>
         );
     }
@@ -33,13 +33,19 @@ for (var i = 0; i < itemCount; i++) {
     };
 }
 
-var props = {
+var containedApp = React.createElement(ExampleList, {
+    container: document.getElementById('contained-list'),
     items: items,
     itemHeight: 100
-};
+});
 
-var app = React.createElement(App, props);
+React.render(containedApp, document.getElementById('contained-list'));
 
-React.render(app, document.getElementById('list'));
+var windowedApp = React.createElement(ExampleList, {
+    items: items,
+    itemHeight: 100
+});
+
+React.render(windowedApp, document.getElementById('windowed-list'));
 
 document.getElementById('itemCount').innerText = itemCount;

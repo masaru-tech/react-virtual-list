@@ -14,14 +14,28 @@ function areArraysEqual(a, b) {
     return true;
 }
 
-function documentOffsetTop(element) {
-    if (!element) return 0;
+function topDifference(element, container) {
+    return topFromWindow(element) - topFromWindow(container);
+}
+
+function topFromWindow(element) {
+    if (!element || element === window) return 0;
     
-    return element.offsetTop + documentOffsetTop(element.offsetParent);
+    return element.offsetTop + topFromWindow(element.offsetParent);
 }
 
 var VirtualList = React.createClass({displayName: "VirtualList",
-    // TODO add propTypes
+    propTypes: {
+        items: React.PropTypes.array.isRequired,
+        itemHeight: React.PropTypes.number.isRequired,
+        renderItem: React.PropTypes.func.isRequired,
+        container: React.PropTypes.object.isRequired
+    },
+    getDefaultProps: function() {
+        return {
+            container: window
+        };
+    },
     getVirtualState: function(props) {
         // default values
         var state = {
@@ -30,24 +44,35 @@ var VirtualList = React.createClass({displayName: "VirtualList",
             bufferEnd: 0
         };
         
-        if (typeof window === 'undefined') return state;
+        // early return if nothing to render
+        if (typeof this.props.container === 'undefined' || props.items.length === 0 || props.itemHeight <= 0 || !this.isMounted()) return state;
         
         var items = props.items;
 
-        if (items.length === 0) return state;
-        
-        var offsetTop = this.isMounted() ? documentOffsetTop(this.getDOMNode()) : 0;
+        var container = this.props.container;
 
-        var renderer = new VirtualRenderer(window.scrollY, window.innerHeight, offsetTop, props.itemHeight, items.length);
+        var viewHeight = typeof container.innerHeight !== 'undefined' ? container.innerHeight : container.clientHeight;
+        
+        // no space to render
+        if (viewHeight <= 0) return state;
+        
+        var list = this.getDOMNode();
+
+        var offsetTop = topDifference(list, container);
+
+        var viewTop = typeof container.scrollY !== 'undefined' ? container.scrollY : container.scrollTop;
+
+        var renderer = new VirtualRenderer(viewTop, viewHeight, offsetTop, props.itemHeight, items.length);
         
         var renderStats = renderer.getItems();
         
+        // no items to render
         if (renderStats.itemsInView.length === 0) return state;
 
         state.items = items.slice(renderStats.firstItemIndex, renderStats.lastItemIndex + 1);
         state.bufferStart = renderStats.firstItemIndex * props.itemHeight;
         state.bufferEnd = renderStats.itemsAfterView * props.itemHeight;
-
+        
         return state;
     },
     getInitialState: function() {
@@ -71,10 +96,10 @@ var VirtualList = React.createClass({displayName: "VirtualList",
         
         this.setState(state);
         
-        window.addEventListener('scroll', this.onScroll);
+        this.props.container.addEventListener('scroll', this.onScroll);
     },
     componentWillUnmount: function() {
-        window.removeEventListener('scroll', this.onScroll);
+        this.props.container.removeEventListener('scroll', this.onScroll);
     },
     onScroll: function() {
         var state = this.getVirtualState(this.props);
@@ -95,7 +120,6 @@ var VirtualList = React.createClass({displayName: "VirtualList",
 module.exports = VirtualList;
 
 },{"./utils/virtual-renderer":2,"react":158}],2:[function(require,module,exports){
-// move this into VirtualList
 function VirtualRenderer(viewTop, viewHeight, listTop, itemHeight, itemCount) {
     this.viewTop = viewTop;
     this.viewHeight = viewHeight;
@@ -105,6 +129,8 @@ function VirtualRenderer(viewTop, viewHeight, listTop, itemHeight, itemCount) {
 }
 
 VirtualRenderer.getBox = function(view, list) {
+    list.height = list.height || list.bottom - list.top;
+    
     return {
         top: Math.max(0, Math.min(view.top - list.top)),
         bottom: Math.max(0, Math.min(list.height, view.bottom - list.top))
@@ -141,17 +167,15 @@ VirtualRenderer.prototype.getItems = function() {
     
     var listViewBox = VirtualRenderer.getBox(viewBox, listBox);
     
-    var firstItemIndex = Math.max(0,  Math.floor(listViewBox.top / this.itemHeight)); //listViewBox.top > -1 ? Math.floor(listViewBox.top / this.itemHeight) : 0;
+    var firstItemIndex = Math.max(0,  Math.floor(listViewBox.top / this.itemHeight));
     var lastItemIndex = Math.ceil(listViewBox.bottom / this.itemHeight) - 1;
     
     var itemsInView = lastItemIndex - firstItemIndex + 1;
-    var itemsBeforeView = firstItemIndex;
     var itemsAfterView = this.itemCount - lastItemIndex - 1;
 
     var result = {
         firstItemIndex: firstItemIndex,
         lastItemIndex: lastItemIndex,
-        itemsBeforeView: itemsBeforeView,
         itemsInView: itemsInView,
         itemsAfterView: itemsAfterView
     };
@@ -19975,7 +19999,7 @@ module.exports = require('./lib/React');
 var React = require('react');
 var VirtualList = require('./dist/VirtualList.js');
 
-var App = React.createClass({displayName: "App",
+var ExampleList = React.createClass({displayName: "ExampleList",
     renderItem: function(item) {
         return (
             React.createElement("div", {key: item.id, className: "list-group-item", style: {height: this.props.itemHeight}}, 
@@ -19992,7 +20016,7 @@ var App = React.createClass({displayName: "App",
     render: function() {
         return (
             React.createElement("div", {className: "media-list list-group"}, 
-                React.createElement(VirtualList, {items: this.props.items, renderItem: this.renderItem, itemHeight: this.props.itemHeight})
+                React.createElement(VirtualList, {container: this.props.container, items: this.props.items, renderItem: this.renderItem, itemHeight: this.props.itemHeight})
             )
         );
     }
@@ -20007,14 +20031,20 @@ for (var i = 0; i < itemCount; i++) {
     };
 }
 
-var props = {
+var containedApp = React.createElement(ExampleList, {
+    container: document.getElementById('contained-list'),
     items: items,
     itemHeight: 100
-};
+});
 
-var app = React.createElement(App, props);
+React.render(containedApp, document.getElementById('contained-list'));
 
-React.render(app, document.getElementById('list'));
+var windowedApp = React.createElement(ExampleList, {
+    items: items,
+    itemHeight: 100
+});
+
+React.render(windowedApp, document.getElementById('windowed-list'));
 
 document.getElementById('itemCount').innerText = itemCount;
 

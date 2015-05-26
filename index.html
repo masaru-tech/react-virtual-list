@@ -4,27 +4,38 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />
         <style>
-            #list .item {
-                overflow: hidden;
+            section {
+                margin-bottom: 4em;
             }
             
-            #list {
-                margin-top: 4em;
+            section:last-child {
                 margin-bottom: 20em;
             }
         </style>
     </head>
     <body>
-        <section class="container">
-            <div class="col-xs-12">
-                <h1>React Virtual List</h1>
-                <p>The below list has <span id="itemCount"></span> items:</p>
-            </div>
-        </section>
-
-        <section class="container">
-            <div id="list" class="col-xs-12"></div>
-        </section>
+        <main>
+            <section class="container">
+                <div class="col-xs-12">
+                    <h1>React Virtual List</h1>
+                    <h4>Each list below has <span id="itemCount"></span> items.  They function independently.</h4>
+                </div>
+            </section>
+    
+            <section class="container">
+                <div class="col-xs-12">
+                    <h4>This is an example of a list inside a container element (set to <code>overflow: scroll</code>):</h4>
+                    <div id="contained-list" style="height: 250px; overflow: scroll;"></div>
+                </div>
+            </section>
+    
+            <section class="container">
+                <div class="col-xs-12">
+                    <h4>This is an example of a list without a secified container (the <code>window</code> object is the container):</h4>
+                    <div id="windowed-list"></div>
+                </div>
+            </section>
+        </main>
 
         <script src="app.js"></script>
     </body>

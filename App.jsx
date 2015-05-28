@@ -22,7 +22,7 @@ var ExampleList = React.createClass({
     }
 });
 
-var itemCount = 150000;
+var itemCount = 100000;
 var items = [];
 
 for (var i = 0; i < itemCount; i++) {

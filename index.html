@@ -4,34 +4,36 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />
         <style>
-            section {
-                margin-bottom: 4em;
+            h1, h2 {
+                font-weight: bold;
             }
-            
-            section:last-child {
-                margin-bottom: 20em;
+        
+            body {
+                padding-bottom: 20em;
             }
         </style>
     </head>
     <body>
+        <header class="jumbotron">
+            <h1 class="container">React Virtual List</h1>
+        </header>
         <main>
             <section class="container">
                 <div class="col-xs-12">
-                    <h1>React Virtual List</h1>
-                    <h4>Each list below has <span id="itemCount"></span> items.  They function independently.</h4>
+                    <p>Each list below has <span id="itemCount"></span> items.  They function independently.</p>
                 </div>
             </section>
-    
             <section class="container">
                 <div class="col-xs-12">
-                    <h4>This is an example of a list inside a container element (set to <code>overflow: scroll</code>):</h4>
+                    <h2 class="page-header">Contained List</h2>
+                    <p>This is an example of a list inside a container element (set to <code>overflow: scroll</code>):</p>
                     <div id="contained-list" style="height: 250px; overflow: scroll;"></div>
                 </div>
             </section>
-    
             <section class="container">
                 <div class="col-xs-12">
-                    <h4>This is an example of a list without a specified container (the <code>window</code> object is the container):</h4>
+                    <h2 class="page-header">Windowed List</h2>
+                    <p>This is an example of a list without a specified container (the <code>window</code> object is the container):</p>
                     <div id="windowed-list"></div>
                 </div>
             </section>

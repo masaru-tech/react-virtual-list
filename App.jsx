@@ -126,7 +126,7 @@ var ConfigurableExample = React.createClass({
                     <div className="col-xs-12">
                         <h3>JSX</h3>
                         <code style={{fontSize: "1.2em"}}>
-                            &lt;VirtualList items={"[" + this.state.items.length + "]"} className="{this.state.className}"  container={"[" + (this.state.contained ? this.state.container.tagName : "window") + "]"} itemHeight="{this.state.itemHeight} tagName="{this.state.tagName}" /&gt;
+                            &lt;VirtualList items={"Array[" + this.state.items.length + "]"} className="{this.state.className}"  container={"[" + (this.state.contained ? this.state.container.tagName : "window") + "]"} itemHeight="{this.state.itemHeight} tagName="{this.state.tagName}" /&gt;
                         </code>
                         <br />
                         <br />

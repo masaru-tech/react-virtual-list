@@ -22186,7 +22186,7 @@ var ConfigurableExample = React.createClass({displayName: "ConfigurableExample",
                     React.createElement("div", {className: "col-xs-12"}, 
                         React.createElement("h3", null, "JSX"), 
                         React.createElement("code", {style: {fontSize: "1.2em"}}, 
-                            "<VirtualList items=", "[" + this.state.items.length + "]", " className=\"", this.state.className, "\"  container=", "[" + (this.state.contained ? this.state.container.tagName : "window") + "]", " itemHeight=\"", this.state.itemHeight, " tagName=\"", this.state.tagName, "\" />"
+                            "<VirtualList items=", "Array[" + this.state.items.length + "]", " className=\"", this.state.className, "\"  container=", "[" + (this.state.contained ? this.state.container.tagName : "window") + "]", " itemHeight=\"", this.state.itemHeight, " tagName=\"", this.state.tagName, "\" />"
                         ), 
                         React.createElement("br", null), 
                         React.createElement("br", null)

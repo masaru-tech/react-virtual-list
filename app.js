@@ -22162,7 +22162,7 @@ var ConfigurableExample = React.createClass({displayName: "ConfigurableExample",
                         )
                     ), 
                     React.createElement("div", {className: "form-group"}, 
-                        React.createElement("label", {className: "col-xs-6 col-sm-2", htmlFor: "contained"}, "Contained?"), 
+                        React.createElement("label", {className: "col-xs-6 col-sm-2", htmlFor: "contained"}, "Contained"), 
                         React.createElement("div", {className: "col-xs-6 col-sm-4"}, 
                             React.createElement("input", {onChange: this.update, className: "form-control", type: "checkbox", checked: this.state.contained, id: "contained", ref: "contained"})
                         ), 
@@ -22172,11 +22172,11 @@ var ConfigurableExample = React.createClass({displayName: "ConfigurableExample",
                         )
                     ), 
                     React.createElement("div", {className: "form-group"}, 
-                        React.createElement("label", {className: "col-xs-6 col-sm-2", htmlFor: "itemHeight"}, "Item Height?"), 
+                        React.createElement("label", {className: "col-xs-6 col-sm-2", htmlFor: "itemHeight"}, "Item Height"), 
                         React.createElement("div", {className: "col-xs-6 col-sm-4"}, 
                             React.createElement("input", {onChange: this.update, className: "form-control", type: "number", min: "0", max: "1000", value: this.state.itemHeight, id: "itemHeight", ref: "itemHeight"})
                         ), 
-                        React.createElement("label", {className: "col-xs-6 col-sm-2", htmlFor: "itemCount"}, "Item Count?"), 
+                        React.createElement("label", {className: "col-xs-6 col-sm-2", htmlFor: "itemCount"}, "Item Count"), 
                         React.createElement("div", {className: "col-xs-6 col-sm-4"}, 
                             React.createElement("input", {onChange: this.update, className: "form-control", type: "number", min: "0", max: "100000", value: this.state.itemCount, id: "itemCount", ref: "itemCount"})
                         )

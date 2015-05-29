@@ -102,7 +102,7 @@ var ConfigurableExample = React.createClass({
                         </div>
                     </div>
                     <div className="form-group">
-                        <label className="col-xs-6 col-sm-2" htmlFor="contained">Contained?</label>
+                        <label className="col-xs-6 col-sm-2" htmlFor="contained">Contained</label>
                         <div className="col-xs-6 col-sm-4">
                             <input onChange={this.update} className="form-control" type="checkbox" checked ={this.state.contained} id="contained" ref="contained" />
                         </div>
@@ -112,11 +112,11 @@ var ConfigurableExample = React.createClass({
                         </div>
                     </div>
                     <div className="form-group">
-                        <label className="col-xs-6 col-sm-2" htmlFor="itemHeight">Item Height?</label>
+                        <label className="col-xs-6 col-sm-2" htmlFor="itemHeight">Item Height</label>
                         <div className="col-xs-6 col-sm-4">
                             <input onChange={this.update} className="form-control" type="number" min="0" max="1000" value={this.state.itemHeight} id="itemHeight" ref="itemHeight" />
                         </div>
-                        <label className="col-xs-6 col-sm-2" htmlFor="itemCount">Item Count?</label>
+                        <label className="col-xs-6 col-sm-2" htmlFor="itemCount">Item Count</label>
                         <div className="col-xs-6 col-sm-4">
                             <input onChange={this.update} className="form-control" type="number" min="0" max="100000" value={this.state.itemCount} id="itemCount" ref="itemCount" />
                         </div>

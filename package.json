@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "browserify -t reactify App.jsx -o app.js",
+    "build": "browserify -t reactify App.jsx | uglifyjs -c > app.min.js",
     "test": "jasmine-node test --verbose --matchall"
   },
   "repository": {
@@ -35,6 +35,7 @@
     "gulp-react": "^3.0.1",
     "jasmine-node": "^1.14.5",
     "reactify": "^1.1.1",
-    "run-sequence": "^1.1.0"
+    "run-sequence": "^1.1.0",
+    "uglifyjs": "^2.4.10"
   }
 }

@@ -31,7 +31,8 @@ var ConfigurableExample = React.createClass({
             itemTagName: 'li',
             itemClassName: 'list-group-item',
             contained: false,
-            containerHeight: 250
+            containerHeight: 250,
+            scrollDelay: 0
         };
         
         return state;
@@ -72,7 +73,8 @@ var ConfigurableExample = React.createClass({
             items: items,
             contained: contained,
             container: this.refs.container.getDOMNode(),
-            containerHeight: parseInt(this.refs.containerHeight.getDOMNode().value, 10)
+            containerHeight: parseInt(this.refs.containerHeight.getDOMNode().value, 10),
+            scrollDelay: parseInt(this.refs.scrollDelay.getDOMNode().value, 10)
         };
         
         this.setState(state);
@@ -121,12 +123,18 @@ var ConfigurableExample = React.createClass({
                             <input onChange={this.update} className="form-control" type="number" min="0" max="100000" value={this.state.itemCount} id="itemCount" ref="itemCount" />
                         </div>
                     </div>
+                    <div className="form-group">
+                        <label className="col-xs-6 col-sm-2" htmlFor="scrollDelay">Scroll Delay</label>
+                        <div className="col-xs-6 col-sm-4">
+                            <input onChange={this.update} className="form-control" type="number" min="0" max="10000" value={this.state.scrollDelay} id="scrollDelay" ref="scrollDelay" />
+                        </div>
+                    </div>
                 </div>
                 <div className="row">
                     <div className="col-xs-12">
                         <h3>JSX</h3>
                         <code style={{fontSize: "1.2em"}}>
-                            &lt;VirtualList items={"Array[" + this.state.items.length + "]"} className="{this.state.className}"  container={"[" + (this.state.contained ? this.state.container.tagName : "window") + "]"} itemHeight="{this.state.itemHeight} tagName="{this.state.tagName}" /&gt;
+                            &lt;VirtualList items={"Array[" + this.state.items.length + "]"} className="{this.state.className}" container={"[" + (this.state.contained ? this.state.container.tagName : "window") + "]"} itemHeight="{this.state.itemHeight}" tagName="{this.state.tagName}" scrollDelay="{this.state.scrollDelay}" /&gt;
                         </code>
                         <br />
                         <br />
@@ -134,7 +142,7 @@ var ConfigurableExample = React.createClass({
                 </div>
                 <div className="row">
                     <div className="col-xs-12" id="container" ref="container" style={this.state.contained ? { overflow: 'scroll', height: this.state.containerHeight } : {}}>
-                        <VirtualList items={this.state.items} renderItem={this.renderItem} className={this.state.className} container={this.state.contained ? this.state.container : window} itemHeight={this.state.itemHeight} tagName={this.state.tagName}  />
+                        <VirtualList items={this.state.items} renderItem={this.renderItem} scrollDelay={this.state.scrollDelay} className={this.state.className} container={this.state.contained ? this.state.container : window} itemHeight={this.state.itemHeight} tagName={this.state.tagName}  />
                     </div>
                 </div>
             </div>

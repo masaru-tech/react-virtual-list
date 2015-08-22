@@ -1,11 +1,9 @@
 var React = require('react/addons');
 var PureRenderMixin = React.addons.PureRenderMixin;
 
-var VirtualList = require('./dist/VirtualList.js');
-
+var VirtualList = require('react-virtual-list');
 
 var itemCount = 100000;
-
 
 var _example = document.getElementById('example');
 

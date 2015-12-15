@@ -1,6 +1,6 @@
 {
   "name": "react-virtual-list",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Super simple virtualized list React component",
   "main": "dist/VirtualList.js",
   "directories": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/developerdizzle/react-virtual-list.git"
+    "url": "https://github.com/masaru-tech/react-virtual-list.git"
   },
   "keywords": [
     "react",
@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/developerdizzle/react-virtual-list",
   "dependencies": {
-    "react": "~0.13.x"
+    "react": "~0.14.3",
+    "react-dom": "~0.14.3"
   },
   "devDependencies": {
     "gulp": "^3.8.11",

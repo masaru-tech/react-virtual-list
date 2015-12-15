@@ -1,7 +1,9 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var utils = require('./utils');
 
 var VirtualList = React.createClass({
+    mounted: false,
     propTypes: {
         items: React.PropTypes.array.isRequired,
         itemHeight: React.PropTypes.number.isRequired,
@@ -28,7 +30,7 @@ var VirtualList = React.createClass({
         };
         
         // early return if nothing to render
-        if (typeof props.container === 'undefined' || props.items.length === 0 || props.itemHeight <= 0 || !this.isMounted()) return state;
+        if (typeof props.container === 'undefined' || props.items.length === 0 || props.itemHeight <= 0 || !this.mounted) return state;
         
         var items = props.items;
         
@@ -75,7 +77,7 @@ var VirtualList = React.createClass({
         };
     },
     _getListBox: function(nextProps) {
-        var list = this.getDOMNode();
+        var list = ReactDOM.findDOMNode(this);
 
         var top = utils.topDifference(list, nextProps.container);
         
@@ -108,6 +110,7 @@ var VirtualList = React.createClass({
         this.onScrollDebounced = utils.debounce(this.onScroll, this.props.scrollDelay, false);
     },
     componentDidMount: function() {
+        this.mounted = true;
         var state = this.getVirtualState(this.props);
         
         this.setState(state);
@@ -115,6 +118,7 @@ var VirtualList = React.createClass({
         this.props.container.addEventListener('scroll', this.onScrollDebounced);
     },
     componentWillUnmount: function() {
+        this.mounted = false;
         this.props.container.removeEventListener('scroll', this.onScrollDebounced);
         
         this.view = this.list = null;
